@@ -119,13 +119,13 @@ PORT=5000
 **Frontend**
 
 ```
-https://YOUR-VERCEL-URL.vercel.app
+https://lostfind-one.vercel.app
 ```
 
 **Backend API**
 
 ```
-https://YOUR-RENDER-URL.onrender.com
+https://lostfinder-djm2.onrender.com
 ```
 
 ---
