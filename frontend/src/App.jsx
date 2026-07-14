@@ -433,7 +433,7 @@ const handleReturned = async (id) => {
                   {!item.returned ? (
                   <button
                     onClick={() => handleReturned(item.id)}
-                    className=" mt-2 py-3 bg-green-500 hover:bg-green-600 text-white rounded-2xl font-semibold"
+                    className=" mt-2 py-3 hover:bg-green-600 text-white rounded-2xl font-semibold"
                     >
                        Mark as Returned
                     </button>

@@ -176,6 +176,25 @@ app.delete("/api/items/:id", async (req, res) => {
 
   }
 });
+app.patch("/api/items/:id/returned", async (req, res) => {
+  try {
+    const item = await Item.findByIdAndUpdate(
+      req.params.id,
+      { returned: true },
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      item,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Failed to mark item as returned",
+    });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`✅ Backend running on http://localhost:${PORT}`);
