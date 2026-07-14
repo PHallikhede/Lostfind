@@ -114,6 +114,43 @@ PORT=5000
 
 ---
 
+## 🌐 Live Demo
+
+**Frontend**
+
+```
+https://YOUR-VERCEL-URL.vercel.app
+```
+
+**Backend API**
+
+```
+https://YOUR-RENDER-URL.onrender.com
+```
+
+---
+
+## 📌 Deployment Notes
+
+The application is successfully deployed using:
+
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** MongoDB Atlas
+
+### Email Notification
+
+The Contact Owner feature is fully implemented.
+
+During local development, email delivery works using SMTP configuration.
+
+For the deployed version, email delivery may require additional configuration with a production email provider and verified sender because cloud hosting platforms enforce email authentication and sender verification policies.
+
+The backend email integration is already implemented and can be configured with a production email service.
+
+---
+
+
 ## Future Enhancements
 
 - User Authentication
