@@ -164,7 +164,7 @@ function MainApp() {
 
 const fetchItems = async () => {
   try {
-    const response = await fetch("http://localhost:5000/api/items");
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/items`);
     const data = await response.json();
 
     const formattedItems = data.map(item => ({
@@ -204,7 +204,7 @@ const fetchItems = async () => {
   const handlePostItem = async (newItem) => {
   try {
 
-    const response = await fetch("http://localhost:5000/api/items", {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/items`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -248,7 +248,7 @@ const fetchItems = async () => {
 
   try {
 
-    const response = await fetch(`http://localhost:5000/api/items/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/items/${id}`, {
       method: "DELETE"
     });
 
@@ -278,7 +278,7 @@ const fetchItems = async () => {
 const handleReturned = async (id) => {
   try {
     const res = await fetch(
-      `http://localhost:5000/api/items/${id}/returned`,
+      `${import.meta.env.VITE_API_URL}/api/items/${id}/returned`,
       {
         method: "PATCH",
       }
@@ -550,7 +550,7 @@ const handleReturned = async (id) => {
 
             try {
 
-              const res = await fetch("http://localhost:5000/api/contact", {
+              const res = await fetch(`${import.meta.env.VITE_API_URL}/api/contact`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
