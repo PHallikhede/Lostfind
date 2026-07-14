@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const { Resend } = require("resend");
+const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 const Item = require("./models/Item");
@@ -12,7 +12,14 @@ app.use(cors());
 app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  }
+});
+
 app.get('/api/test', (req, res) => {
   res.json({ message: "Backend is working!" });
 });
@@ -26,7 +33,10 @@ app.post('/api/contact', async (req, res) => {
     }
     console.log(req.body);
     
-    const mailOptions = {     
+    const mailOptions = {
+      from: `"LostFinder" <${process.env.EMAIL_USER}>`,
+      to: ownerEmail,
+      replyTo: senderEmail,     
       subject: `Someone contacted you about: ${itemName}`,
       html: `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; border: 1px solid #ddd; border-radius: 10px; overflow: hidden;">
@@ -99,13 +109,7 @@ app.post('/api/contact', async (req, res) => {
 </div>
 `};
 
-  await resend.emails.send({
-  from: "onboarding@resend.dev",
-  to: ownerEmail,
-  replyTo: senderEmail,
-  subject: `Someone contacted you about: ${itemName}`,
-  html: mailOptions.html,
-});
+    await transporter.sendMail(mailOptions);
     res.json({ success: true, message: "Email sent successfully!" });
 
   } catch (error) {
@@ -171,27 +175,6 @@ app.delete("/api/items/:id", async (req, res) => {
     });
 
   }
-});
-app.patch("/api/items/:id/returned", async (req, res) => {
-
-  try {
-
-    await Item.findByIdAndUpdate(req.params.id, {
-      returned: true
-    });
-
-    res.json({
-      success: true
-    });
-
-  } catch (err) {
-
-    res.status(500).json({
-      success: false
-    });
-
-  }
-
 });
 
 app.listen(PORT, () => {
